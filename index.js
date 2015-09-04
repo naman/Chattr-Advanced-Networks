@@ -2,6 +2,8 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+var port = process.env.PORT || 8080;
+
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
@@ -37,7 +39,7 @@ io.on('connection', function(socket){
   });
 });
 
-var server = http.listen(8000, function(){
+var server = http.listen(port, function(){
 	var host = server.address().address;
 	var port = server.address().port;
 	console.log("Server Listening at http://%s:%s", host,port);
