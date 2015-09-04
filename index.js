@@ -25,6 +25,8 @@ function generate_random_name() {
 
 
 io.on('connection', function(socket){
+  io.set("transports", ["xhr-polling"]);
+  io.set("polling duration", 10);
   var username = generate_random_name();
   var conn = username + " is here! Say Hi! :)";
   // io.emit('connected', conn);
