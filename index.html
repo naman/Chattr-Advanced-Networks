@@ -4,11 +4,12 @@
 <head>
     <title>curly-octo-woof</title>
 
+<link href="data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA////AM9MlAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAACAAAAAAIAACAAAAAAAiACIAAAAAAAICIAAAACAiICICIgIAAiAiIiICIAAAAAIiIAAAAAAAIgICAAAAAAIgICAgAAAAIiIiIiIAAAAgACIAAgAAACAAIgACAAAAIQAiEAIAAAACIiIiIAAAAAAiIiIAAAAAAAAAAAAADjxwAA8Y8AAPAPAACgBQAAAAAAAIABAADIEwAA8A8AAOAHAADAAwAAwAMAAMADAADAAwAA4AcAAPAPAAD4HwAA" rel="icon" type="image/x-icon" />
     <style>
     * {
         margin: 0;
         padding: 0;
-        /*box-sizing: border-box;*/
+        box-sizing: border-box;
     }
     
     body {
@@ -64,6 +65,9 @@
     <script src="http://code.jquery.com/jquery-2.1.4.js"></script>
     
     <script>
+
+    $( document ).ready(function() {
+  
     var socket = io();
     $('form').submit(function() {
             socket.emit('chat message', $('#m').val());
@@ -81,6 +85,8 @@
     socket.on('disconnected', function(disconn) {
         $('#messages').append($('<li>').text(disconn));
     });
+  
+  });
     </script>
 </body>
 

@@ -2,13 +2,15 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-var port = process.env.PORT || 8080;
-
+// var port = process.env.PORT || 8080;
+var port = 8080;
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
-
-
+ 
+// io.set("transports", ["xhr-polling"]);
+// io.set("polling duration", 10);
+ 
 function generate_random_name() {
         var a = ["small", "blue", "cute",
             "shrubbery", "finagle", "nincompoop", "shenanigan", "flagella", "bobbin", "egad", "quagga", "machete", "hootenany", "waddle", "filibuster", "poppycock", "pants", "snout", "kumquat", "floppy", "gallivant", "liripoop", "quean", "cockalorum", "ornery", "napkin", "euphonium "
@@ -25,14 +27,14 @@ function generate_random_name() {
 
 
 io.on('connection', function(socket){
-  io.set("transports", ["xhr-polling"]);
-  io.set("polling duration", 10);
+  console.log(socket.request.connection.remoteAddress);
   var username = generate_random_name();
   var conn = username + " is here! Say Hi! :)";
-  // io.emit('connected', conn);
-  socket.broadcast.emit('connected', conn,{ receivers: 'everyone but socket'}); //emits to everyone but socket
+  io.emit('connected', conn);
+  // socket.broadcast.emit('connected', conn,{ receivers: 'everyone but socket'}); //emits to everyone but socket
 
   socket.on('chat message', function(msg){
+  	console.log(username+": "+msg);
     io.emit('chat message', username+": "+msg);
   });
   socket.on('disconnect', function(){
@@ -41,7 +43,7 @@ io.on('connection', function(socket){
   });
 });
 
-var server = http.listen(port, function(){
+var server = http.listen(port, '::', function(){
 	var host = server.address().address;
 	var port = server.address().port;
 	console.log("Server Listening at http://%s:%s", host,port);
