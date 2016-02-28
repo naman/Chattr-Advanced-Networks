@@ -1,5 +1,5 @@
-# curly-octo-woof
-Node.JS realtime chat app for Advanced Networks using IPv6
+# Chattr
+Node.JS realtime IPv6-enabled chat app for Advanced Networks using SocketIO 
 
 
 Installation: 
